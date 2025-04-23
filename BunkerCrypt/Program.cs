@@ -5,7 +5,7 @@ class BunkerCrypt
     static void Main()
     {
         Console.WriteLine("== BunkerCrypt - Simple File Encryption ==");
-        Thread.Sleep(700);
+        Thread.Sleep(500);
         Console.WriteLine("Choose an option below:");
         Console.WriteLine("1. Encrypt File");
         Console.WriteLine("2. Decrypt File");
