@@ -65,8 +65,10 @@ internal class BunkerCrypt
         {
             Console.WriteLine("Error: " + e.Message);
         }
+        Console.WriteLine("\nPress any key to exit...");
+        Console.ReadKey();
     }
-
+    
     private static string CaesarCipher(string text, int shift)
     {
         shift %= 26;
