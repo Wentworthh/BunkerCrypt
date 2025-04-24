@@ -1,8 +1,8 @@
 ﻿using System.Text;
 
-class BunkerCrypt
+internal class BunkerCrypt
 {
-    static void Main()
+    private static void Main()
     {
         Console.WriteLine("== BunkerCrypt - Simple File Encryption ==");
         Thread.Sleep(500);
@@ -13,10 +13,7 @@ class BunkerCrypt
         int option;
         while (true)
         {
-            if (int.TryParse(Console.ReadLine(), out option) && (option == 1 || option == 2))
-            {
-                break;
-            }
+            if (int.TryParse(Console.ReadLine(), out option) && (option == 1 || option == 2)) break;
             Console.WriteLine("Invalid option, try again.");
         }
 
@@ -52,17 +49,14 @@ class BunkerCrypt
         while (true)
         {
             Console.Write("Enter key: ");
-            if (int.TryParse(Console.ReadLine(), out key))
-            {
-                break;
-            }
+            if (int.TryParse(Console.ReadLine(), out key)) break;
             Console.WriteLine("Invalid key, it must be a number");
         }
 
         try
         {
-            string text = File.ReadAllText(filePath);
-            string result = option == 1 ? CaesarCipher(text, key) : CaesarCipher(text, -key);
+            var text = File.ReadAllText(filePath);
+            var result = option == 1 ? CaesarCipher(text, key) : CaesarCipher(text, -key);
             File.WriteAllText(filePath, result);
             Console.WriteLine($"File successfully {(option == 1 ? "encrypted" : "decrypted")}!");
             Console.WriteLine($"Original file has been {(option == 1 ? "encrypted" : "decrypted")} in place.");
@@ -73,24 +67,22 @@ class BunkerCrypt
         }
     }
 
-    static string CaesarCipher(string text, int shift)
+    private static string CaesarCipher(string text, int shift)
     {
         shift %= 26;
         var buffer = new StringBuilder(text.Length);
 
-        foreach (char c in text)
-        {
+        foreach (var c in text)
             if (char.IsLetter(c))
             {
-                char offset = char.IsUpper(c) ? 'A' : 'a';
-                char shifted = (char)(((c + shift - offset + 26) % 26) + offset);
+                var offset = char.IsUpper(c) ? 'A' : 'a';
+                var shifted = (char)((c + shift - offset + 26) % 26 + offset);
                 buffer.Append(shifted);
             }
             else
             {
                 buffer.Append(c);
             }
-        }
 
         return buffer.ToString();
     }
